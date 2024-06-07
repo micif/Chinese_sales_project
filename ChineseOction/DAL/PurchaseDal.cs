@@ -74,11 +74,17 @@ namespace ChineseOction.DAL
             }
 
         }
-        public async Task<Purchase>Placeoder(int userId)
+        public async Task<Purchase> PlaceOrder(int userId)
         {
-            var purchaseList = await chinesesOctionContext.Carts.Where(c => c.UserId == userId).ToListAsync();
-
-            return null;
+            try
+            {
+                var cart = chinesesOctionContext.Carts.Where(c => c.UserId == userId).ToListAsync();
+                throw new Exception("");
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 
