@@ -74,5 +74,17 @@ namespace ChineseOction.DAL
             }
 
         }
+        public async Task<Purchase> PlaceOrder(int userId)
+        {
+            try
+            {
+                var cart = chinesesOctionContext.Carts.Where(c => c.UserId == userId).ToListAsync();
+                throw new Exception();
+            }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
