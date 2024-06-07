@@ -79,7 +79,7 @@ namespace ChineseOction.DAL
             try
             {
                 var cart = chinesesOctionContext.Carts.Where(c => c.UserId == userId).ToListAsync();
-                throw new Exception();
+                throw new Exception("  gfh");
             }
             catch(Exception ex)
             {
