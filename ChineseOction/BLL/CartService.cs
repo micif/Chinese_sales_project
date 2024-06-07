@@ -1,0 +1,35 @@
+﻿using ChineseOction.DAL;
+using ChineseOction.Models;
+
+namespace ChineseOction.BLL
+{
+    public class CartService : ICartService
+    {
+        private readonly ICartDal cartDal;
+
+        public CartService(ICartDal cartDal)
+        {
+            this.cartDal = cartDal;
+        }
+        public async Task<int> AddToCart(int userId, int giftId)
+        {
+            return await cartDal.AddToCart(userId, giftId);
+        }
+        public async Task<List<Cart>> GetCart(int userId)
+        {
+            return await cartDal.GetCart(userId);
+        }
+        public async Task<int> Increas(int userId, int giftId)
+        {
+            return await cartDal.Increas(userId, giftId);
+        }
+        public async Task<int> Reduce(int userId, int giftId)
+        {
+            return await cartDal.Reduce(userId, giftId);
+        }
+        public async Task<int> RemoveFromCart(int userId, int giftId)
+        {
+            return await cartDal.RemoveFromCart(userId, giftId);
+        }
+    }
+}
