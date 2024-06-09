@@ -12,7 +12,7 @@ builder.Services.AddCors();
 // Add services to the container.
 
 builder.Services.AddControllers();
-builder.Services.AddDbContext<ChinesesOctionContext>(c => c.UseSqlServer("Data Source=DESKTOP-E0FAPSB\\SQLEXPRESS;Initial Catalog=ChinesesOction;Integrated Security=True;Trust Server Certificate=True;"));
+builder.Services.AddDbContext<ChinesesOctionContext>(c => c.UseSqlServer("Data Source=srv2\\pupils;Initial Catalog=ChinesesOction;Integrated Security=True;Trust Server Certificate=True;"));
 
 builder.Services.AddScoped<IUserDal, UserDal>();
 builder.Services.AddScoped<IUserService, UserService>();
