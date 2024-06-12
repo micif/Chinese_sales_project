@@ -1,4 +1,5 @@
 ﻿using ChineseOction.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.CompilerServices;
 
@@ -17,7 +18,14 @@ namespace ChineseOction.DAL
             try
             {
                 var cart = await chinesesOctionContext.Carts.Include(g => g.Gift).Where(c=>c.UserId==userId).ToListAsync();
-                return cart;
+                if (cart.Count()!=0)
+                {
+                    return cart;
+                }
+                else
+                {
+                    throw (new Exception("There is no such user "));
+                }
             }
             catch (Exception ex)
             {
@@ -28,22 +36,24 @@ namespace ChineseOction.DAL
         }
         public async Task<int> AddToCart(int userId,int giftId)
         {
-            try { 
-            var gift = await chinesesOctionContext.Carts.FirstOrDefaultAsync(g => g.UserId == userId &g.GiftId == giftId);
-                if (gift != null)
-                {
-                gift.Quantity++;
-                    await chinesesOctionContext.SaveChangesAsync();
-                }
-
-                else
-                {
-                    Cart cart = new Cart { GiftId = giftId, UserId = userId, Quantity = 1 };
-                    await chinesesOctionContext.Carts.AddAsync(cart);
-                    await chinesesOctionContext.SaveChangesAsync();
-                }
-            return giftId;
-           }
+            try 
+            { 
+                    var gift = await chinesesOctionContext.Carts.FirstOrDefaultAsync(g => g.UserId == userId &g.GiftId == giftId);
+                        
+                        if (gift != null)
+                        {
+                            gift.Quantity++;
+                            await chinesesOctionContext.SaveChangesAsync();
+                        
+                        }
+                        else
+                        {
+                            Cart cart = new Cart { GiftId = giftId, UserId = userId, Quantity = 1 };
+                            await chinesesOctionContext.Carts.AddAsync(cart);
+                            await chinesesOctionContext.SaveChangesAsync();
+                        }
+                        return giftId;
+            }
             catch (Exception ex)
             {
                 throw ex;
