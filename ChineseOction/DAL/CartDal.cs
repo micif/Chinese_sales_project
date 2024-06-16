@@ -26,19 +26,20 @@ namespace ChineseOction.DAL
 
 
         }
-        public async Task<int> AddToCart(int userId,int giftId)
+        public async Task<int> AddToCart(int userId,int giftId,int quantity)
         {
             try { 
-            var gift = await chinesesOctionContext.Carts.FirstOrDefaultAsync(g => g.UserId == userId &g.GiftId == giftId);
+            
+                var gift = await chinesesOctionContext.Carts.FirstOrDefaultAsync(g => g.UserId == userId &g.GiftId == giftId);
                 if (gift != null)
                 {
-                gift.Quantity++;
+                    gift.Quantity+=quantity;
                     await chinesesOctionContext.SaveChangesAsync();
                 }
 
                 else
                 {
-                    Cart cart = new Cart { GiftId = giftId, UserId = userId, Quantity = 1 };
+                    Cart cart = new Cart { GiftId = giftId, UserId = userId, Quantity = quantity };
                     await chinesesOctionContext.Carts.AddAsync(cart);
                     await chinesesOctionContext.SaveChangesAsync();
                 }

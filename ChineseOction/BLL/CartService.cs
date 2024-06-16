@@ -11,9 +11,9 @@ namespace ChineseOction.BLL
         {
             this.cartDal = cartDal;
         }
-        public async Task<int> AddToCart(int userId, int giftId)
+        public async Task<int> AddToCart(int userId, int giftId, int quantity)
         {
-            return await cartDal.AddToCart(userId, giftId);
+            return await cartDal.AddToCart(userId, giftId,quantity);
         }
         public async Task<List<Cart>> GetCart(int userId)
         {
