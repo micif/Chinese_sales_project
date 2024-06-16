@@ -23,10 +23,10 @@ namespace ChineseOction.Controllers
         {
             return await cartService.GetCart(userId);
         }
-        [HttpPost("{userId}/{giftId}")]
-        public async Task<ActionResult<int>> AddToCart( int userId, int giftId)
+        [HttpPost("{userId}/{giftId}/{quantity}")]
+        public async Task<ActionResult<int>> AddToCart( int userId, int giftId, int quantity)
         {
-            return await cartService.AddToCart(userId,giftId);
+            return await cartService.AddToCart(userId,giftId,quantity);
         }
         [HttpPut("Increas/{userId}/{giftId}")]
 
