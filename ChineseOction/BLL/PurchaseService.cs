@@ -27,6 +27,11 @@ namespace ChineseOction.BLL
         {
             return await purchaseDal.SortByMostPurchasedGift();
         }
+        public async Task<Purchase> PlaceOrder(int userId)
+        {
+            return await purchaseDal.PlaceOrder(userId);
+        }
+
 
 
     }

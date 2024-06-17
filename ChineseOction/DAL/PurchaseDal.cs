@@ -78,8 +78,33 @@ namespace ChineseOction.DAL
         {
             try
             {
-                var cart = chinesesOctionContext.Carts.Where(c => c.UserId == userId).ToListAsync();
-                throw new Exception("");
+                var cart = await chinesesOctionContext.Carts.Where(c => c.UserId == userId).ToListAsync();
+                Purchase purchase = new Purchase
+                {
+                    CustomerId = userId,
+                    Date = DateTime.Now
+                };
+                await chinesesOctionContext.Purchases.AddAsync(purchase);
+                await chinesesOctionContext.SaveChangesAsync();
+
+                var purchaseId = await chinesesOctionContext.Purchases.Where(p => p .CustomerId==userId & p.Date==purchase.Date).Select(p => p.Id)
+                .FirstOrDefaultAsync();
+                foreach (var item in cart)
+                {
+                    PurchaseList purchaseList = new PurchaseList
+                    {
+                        PurchaseId = purchaseId,
+                        Quantity = item.Quantity,
+                        GiftId = item.GiftId
+
+                    };
+                    chinesesOctionContext.PurchaseLists.AddAsync(purchaseList);
+                    chinesesOctionContext.Carts.Remove(item);
+                  
+                }
+                await chinesesOctionContext.SaveChangesAsync();
+
+                return purchase;
             }
             catch(Exception ex)
             {
