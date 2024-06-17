@@ -28,8 +28,12 @@ namespace ChineseOction.DAL
         }
         public async Task<int> AddToCart(int userId,int giftId,int quantity)
         {
-            try { 
-            
+            try {
+
+                if (quantity < 1)
+                {
+                    throw new Exception("The quantity is incorrect ");
+                }
                 var gift = await chinesesOctionContext.Carts.FirstOrDefaultAsync(g => g.UserId == userId &g.GiftId == giftId);
                 if (gift != null)
                 {

@@ -8,5 +8,6 @@ namespace ChineseOction.DAL
         Task<List<PurchaseList>> GetPurchaseByGift(int giftId);
         Task<List<PurchaseList>> SortByMaxPrice();
         Task<List<PurchaseList>> SortByMostPurchasedGift();
+        Task<Purchase> PlaceOrder(int userId);
     }
 }

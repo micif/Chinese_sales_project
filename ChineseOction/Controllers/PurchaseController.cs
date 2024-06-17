@@ -45,6 +45,12 @@ namespace ChineseOction.Controllers
             return await purchaseService.SortByMostPurchasedGift();
 
         }
+        [HttpPost("{userId}")]
+        public async Task<Purchase> PlaceOrder(int userId)
+        {
+            return await purchaseService.PlaceOrder(userId);
+        }
+
 
 
     }
