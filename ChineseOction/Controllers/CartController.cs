@@ -1,50 +1,97 @@
 ﻿using AutoMapper;
 using ChineseOction.BLL;
-using ChineseOction.Models.DTO;
 using ChineseOction.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ChineseOction.Controllers
-{       [ApiController]
-        [Route("api/[controller]")]
+{
+    [ApiController]
+    [Authorize]
+    [Route("api/[controller]")]
     public class CartController : ControllerBase
     {
-    
         private readonly ICartService cartService;
         private readonly IMapper mapper;
+
         public CartController(ICartService cartService, IMapper mapper)
         {
             this.cartService = cartService;
             this.mapper = mapper;
         }
 
-        [HttpGet("{userId}")]
-        public async Task<List<Cart>> GetCart(int userId)
+        [HttpGet]
+        public async Task<ActionResult<List<Cart>>> GetCart()
         {
-            return await cartService.GetCart(userId);
-        }
-        [HttpPost("{userId}/{giftId}/{quantity}")]
-        public async Task<ActionResult<int>> AddToCart( int userId, int giftId, int quantity)
-        {
-            return await cartService.AddToCart(userId,giftId,quantity);
-        }
-        [HttpPut("Increas/{userId}/{giftId}")]
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return BadRequest("Invalid user ID in token");
+            }
 
-        public async Task<ActionResult<int>> Increas(int userId, int giftId)
-        {
-            return await cartService.Increas(userId, giftId);
-        }
-        [HttpPut("Reduce/{userId}/{giftId}")]
+            var cart = await cartService.GetCart(userId);
 
-        public async Task<ActionResult<int>> Reduce(int userId, int giftId)
-        {
-            return await cartService.Reduce(userId, giftId);
-        }
-        [HttpDelete("{userId}/{giftId}")]
+            if (cart == null || !cart.Any())
+            {
+                return NoContent(); 
+            }
 
-        public async Task<ActionResult<int>> RemoveFromCart(int userId, int giftId)
+            return Ok(cart); 
+        }
+
+        [HttpPost("{giftId}/{quantity}")]
+        public async Task<ActionResult<int>> AddToCart(int giftId, int quantity)
         {
-            return await cartService.RemoveFromCart(userId, giftId);
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return BadRequest("Invalid user ID in token");
+            }
+
+            var result = await cartService.AddToCart(userId, giftId, quantity);
+            return Ok(result); 
+        }
+
+      
+        [HttpPut("Increase/{giftId}")]
+        public async Task<ActionResult<int>> Increase(int giftId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return BadRequest("Invalid user ID in token");
+            }
+
+            
+            return Ok(await cartService.Increas(userId,giftId)); 
+        }
+
+        
+        [HttpPut("Reduce/{giftId}")]
+        public async Task<ActionResult<int>> Reduce(int giftId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return BadRequest("Invalid user ID in token");
+            }
+
+            var result = await cartService.Reduce(userId, giftId);
+            return Ok(result); 
+        }
+
+        [HttpDelete("{giftId}")]
+        public async Task<ActionResult<int>> RemoveFromCart(int giftId)
+        {
+            var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (!int.TryParse(userIdClaim, out var userId))
+            {
+                return BadRequest("Invalid user ID in token");
+            }
+
+            var result = await cartService.RemoveFromCart(userId, giftId);
+            return Ok(result); 
         }
     }
 }

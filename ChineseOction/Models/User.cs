@@ -1,4 +1,6 @@
-﻿namespace ChineseOction.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChineseOction.Models
 {
     public enum Permission
     {
@@ -13,6 +15,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
+        [EmailAddress]
         public string Mail { get; set; }
         public Permission Permission { get; set; }
         public  IEnumerable <Purchase> ?Purchases { get; set; } 

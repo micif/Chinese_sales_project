@@ -1,67 +1,100 @@
 ﻿using AutoMapper;
 using ChineseOction.BLL;
-using ChineseOction.DAL;
 using ChineseOction.Models;
 using ChineseOction.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChineseOction.Controllers
 {
     [ApiController]
+    [Authorize(Roles = nameof(Permission.MANAGER))]  
     [Route("api/[controller]")]
-    public class DonorController :ControllerBase
+    public class DonorController : ControllerBase
     {
-
         private readonly IDonorService donatesService;
         private readonly IMapper mapper;
+
         public DonorController(IDonorService donatesService, IMapper mapper)
         {
             this.donatesService = donatesService;
             this.mapper = mapper;
-
         }
 
         [HttpGet]
-        public async Task<List<Donor>> Get()
+        public async Task<ActionResult<List<Donor>>> Get()
         {
-            return await donatesService.Get();
+            var donors = await donatesService.Get();
+            if (donors == null || !donors.Any())
+            {
+                return NoContent(); 
+            }
+            return Ok(donors); 
         }
+
         [HttpPost]
         public async Task<ActionResult<Donor>> Add(DonorDto donorDto)
         {
             var donor = mapper.Map<Donor>(donorDto);
-            
-            return await donatesService.Add(donor);
+            var result = await donatesService.Add(donor);
+            if (result == null)
+            {
+                return BadRequest("Failed to add donor."); 
+            }
+            return CreatedAtAction(nameof(Get), new { id = result.Id }, result); 
         }
+
         [HttpDelete("{id}")]
-        public async Task Remove(int id)
+        public async Task<IActionResult> Remove(int id)
         {
-            await donatesService.Remove(id);
+             await donatesService.Remove(id);
+          
+            return NoContent(); 
         }
 
         [HttpPut]
-        public async Task<Donor> Update(UpdateDonorDto donorDto)
+        public async Task<ActionResult<Donor>> Update(UpdateDonorDto donorDto)
         {
             var donor = mapper.Map<Donor>(donorDto);
-            return await donatesService.Update(donor);
+            var result = await donatesService.Update(donor);
+            if (result == null)
+            {
+                return BadRequest("Failed to update donor."); 
+            }
+            return Ok(result); 
         }
+
         [HttpGet("SearchByName{name}")]
-        public async Task<List<Donor>> SearchByName(string name)
+        public async Task<ActionResult<List<Donor>>> SearchByName(string name)
         {
-            return await donatesService.SearchByName(name);
+            var donors = await donatesService.SearchByName(name);
+            if (donors == null || !donors.Any())
+            {
+                return NoContent(); 
+            }
+            return Ok(donors); 
         }
+
         [HttpGet("SearchByEmail{email}")]
-
-        public async Task<List<Donor>> SearchByEmail(string email)
+        public async Task<ActionResult<List<Donor>>> SearchByEmail(string email)
         {
-            return await donatesService.SearchByEmail(email);
+            var donors = await donatesService.SearchByEmail(email);
+            if (donors == null || !donors.Any())
+            {
+                return NoContent(); 
+            }
+            return Ok(donors); 
         }
+
         [HttpGet("SearchByGift{giftId}")]
-
-        public async Task<List<Donor>> SearchByGift(int giftId)
+        public async Task<ActionResult<List<Donor>>> SearchByGift(int giftId)
         {
-            return await donatesService.SearchByGift(giftId);
+            var donors = await donatesService.SearchByGift(giftId);
+            if (donors == null || !donors.Any())
+            {
+                return NoContent(); 
+            }
+            return Ok(donors); 
         }
-
     }
 }
