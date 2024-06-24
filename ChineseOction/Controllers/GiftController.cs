@@ -3,7 +3,9 @@ using ChineseOction.BLL;
 using ChineseOction.DAL;
 using ChineseOction.Models;
 using ChineseOction.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Data;
 
 namespace ChineseOction.Controllers
 {
@@ -26,6 +28,7 @@ namespace ChineseOction.Controllers
         {
             return await giftsService.GetAllGifts();
         }
+        [Authorize(Roles = nameof(Permission.MANAGER))]
         [HttpPost]
         public async Task<ActionResult<Gift>> Add(GiftDto giftDto)
         {
@@ -33,12 +36,13 @@ namespace ChineseOction.Controllers
 
             return await giftsService.AddGift(gift);
         }
+        [Authorize(Roles = nameof(Permission.MANAGER))]
         [HttpDelete("{id}")]
         public async Task Remove(int id)
         {
             await giftsService.DeleteGift(id);
         }
-
+        [Authorize(Roles = nameof(Permission.MANAGER))]
         [HttpPut]
         public async Task<Gift> Update(UpdateGiftDto giftDto)
         {

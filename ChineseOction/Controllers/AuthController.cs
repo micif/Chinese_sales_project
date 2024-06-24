@@ -1,18 +1,20 @@
 ﻿using ChineseOction.BLL;
 using ChineseOction.DAL;
 using ChineseOction.Models;
+using ChineseOction.Models.DTO;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChineseOction.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class UserController : ControllerBase
+    public class AuthController : ControllerBase
     {
-        private readonly IUserService userService;
+        private readonly IAuthService userService;
 
-        public UserController(IUserService userService)
+        public AuthController(IAuthService userService)
         {
             this.userService = userService;
         }
@@ -22,7 +24,11 @@ namespace ChineseOction.Controllers
         {
             return await userService.GetAllUsers();
         }
-
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(LoginDto loginDto)
+        {
+            return Ok(await userService.Login(loginDto)); 
+        }
 
 
     }

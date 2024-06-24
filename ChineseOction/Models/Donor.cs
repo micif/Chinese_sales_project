@@ -1,4 +1,6 @@
-﻿namespace ChineseOction.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ChineseOction.Models
 {
     public class Donor
     {
@@ -6,6 +8,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Phone { get; set; }
+        [EmailAddress]
         public string Mail { get; set; }
         public string Picture { get; set; }
 

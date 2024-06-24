@@ -23,6 +23,12 @@ namespace ChineseOction.BLL
         {
             return await cartDal.Increas(userId, giftId);
         }
+
+        public Task Increase(int userId, int giftId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<int> Reduce(int userId, int giftId)
         {
             return await cartDal.Reduce(userId, giftId);

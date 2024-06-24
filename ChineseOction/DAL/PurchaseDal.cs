@@ -81,7 +81,7 @@ namespace ChineseOction.DAL
                 var cart = await chinesesOctionContext.Carts.Where(c => c.UserId == userId).ToListAsync();
                 Purchase purchase = new Purchase
                 {
-                    CustomerId = userId,
+                    CustomerId = userId, 
                     Date = DateTime.Now
                 };
                 await chinesesOctionContext.Purchases.AddAsync(purchase);
