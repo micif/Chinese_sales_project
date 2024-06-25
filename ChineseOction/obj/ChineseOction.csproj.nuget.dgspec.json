@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "M:\\web api\\New folder\\ChineseOction\\ChineseOction.csproj": {}
+    "C:\\Users\\The user\\Desktop\\web-api\\project\\ChineseOction\\ChineseOction.csproj": {}
   },
   "projects": {
-    "M:\\web api\\New folder\\ChineseOction\\ChineseOction.csproj": {
+    "C:\\Users\\The user\\Desktop\\web-api\\project\\ChineseOction\\ChineseOction.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "M:\\web api\\New folder\\ChineseOction\\ChineseOction.csproj",
+        "projectUniqueName": "C:\\Users\\The user\\Desktop\\web-api\\project\\ChineseOction\\ChineseOction.csproj",
         "projectName": "ChineseOction",
-        "projectPath": "M:\\web api\\New folder\\ChineseOction\\ChineseOction.csproj",
-        "packagesPath": "C:\\Users\\326053899\\.nuget\\packages\\",
-        "outputPath": "M:\\web api\\New folder\\ChineseOction\\obj\\",
+        "projectPath": "C:\\Users\\The user\\Desktop\\web-api\\project\\ChineseOction\\ChineseOction.csproj",
+        "packagesPath": "C:\\Users\\The user\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\The user\\Desktop\\web-api\\project\\ChineseOction\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\326053899\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\The user\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -52,6 +53,14 @@
               "target": "Package",
               "version": "[7.0.0, )"
             },
+            "EPPlus": {
+              "target": "Package",
+              "version": "[7.2.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[7.0.20, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[7.0.14, )"
@@ -72,9 +81,21 @@
               "target": "Package",
               "version": "[7.0.17, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[7.6.1, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.5.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[7.6.1, )"
+            },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.4, )"
             }
           },
           "imports": [
@@ -96,7 +117,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.120\\RuntimeIdentifierGraph.json"
         }
       }
     }

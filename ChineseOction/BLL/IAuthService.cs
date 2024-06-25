@@ -7,5 +7,6 @@ namespace ChineseOction.BLL
     {
         Task<List<User>> GetAllUsers();
         Task<string> Login(LoginDto loginDto);
+        Task Register(User user);
     }
 }
