@@ -7,19 +7,23 @@ namespace ChineseOction.BLL
     public class AuthService : IAuthService
 
     {
-        private readonly IAuthDal userDal;
+        private readonly IAuthDal authDal;
 
         public AuthService(IAuthDal userDal)
         {
-            this.userDal = userDal;
+            this.authDal = userDal;
         }
         public async Task<List<User>> GetAllUsers()
         {
-            return await userDal.GetAllUsers();
+            return await authDal.GetAllUsers();
         }
         public async Task<string> Login(LoginDto loginDto)
         {
-            return await userDal.Login(loginDto);
+            return await authDal.Login(loginDto);
+        }
+        public async Task Register(User user)
+        {
+             await authDal.Register(user);
         }
     }
 }

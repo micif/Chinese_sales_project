@@ -28,6 +28,7 @@ namespace ChineseOction.Controllers
         {
             return await giftsService.GetAllGifts();
         }
+
         [Authorize(Roles = nameof(Permission.MANAGER))]
         [HttpPost]
         public async Task<ActionResult<Gift>> Add(GiftDto giftDto)

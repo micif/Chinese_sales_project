@@ -12,6 +12,10 @@ namespace ChineseOction.Models
             CreateMap<UpdateDonorDto, Donor>().ReverseMap();
             CreateMap<GiftDto, Gift>();
             CreateMap<UpdateGiftDto, Gift>();
+            CreateMap<UserDto, User>()
+                .ForMember(dest => dest.Permission, opt => opt.MapFrom(src => Permission.CUSTOMER));
+
+
 
 
 

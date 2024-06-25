@@ -54,7 +54,7 @@ namespace ChineseOction.Controllers
         }
 
       
-        [HttpPut("Increase/{giftId}")]
+        [HttpPut("Increas/{giftId}")]
         public async Task<ActionResult<int>> Increase(int giftId)
         {
             var userIdClaim = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;

@@ -3,6 +3,8 @@ using ChineseOction.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Mail;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 
@@ -25,11 +27,12 @@ namespace ChineseOction.DAL
         {
             return await chinesesOctionContext.Users.ToListAsync();
         }
-
+       
         public async Task<string> Login(LoginDto loginDto)
         {
             try
             {
+                
                 var user = await chinesesOctionContext.Users.FirstOrDefaultAsync(u => u.UserName == loginDto.UserName && u.Password == loginDto.Password);
                 if (user != null)
                 {
@@ -64,6 +67,25 @@ namespace ChineseOction.DAL
             catch (Exception ex)
             {
                 throw new Exception("An error occurred during login.", ex);
+            }
+        }
+        public async Task Register(User user)
+        {
+            try
+            {
+                var userName=await chinesesOctionContext.Users.FirstOrDefaultAsync(u=>u.UserName==user.UserName);
+                if(userName != null)
+                {
+                    throw new Exception("This username already exists in the system");
+                }
+                await chinesesOctionContext.Users.AddAsync(user);
+                await chinesesOctionContext.SaveChangesAsync();
+                
+
+            }
+            catch (Exception ex) 
+            {
+                throw (ex);
             }
         }
 

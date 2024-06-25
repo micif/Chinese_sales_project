@@ -30,6 +30,8 @@ builder.Services.AddScoped<ICategoryDal, CategoryDal>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICartDal, CartDal>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IRaffleDal, RaffleDal>();
+builder.Services.AddScoped<IRaffleService, RaffleService>();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
