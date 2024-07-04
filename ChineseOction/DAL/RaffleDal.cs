@@ -110,7 +110,23 @@ namespace ChineseOction.DAL
                 throw;
             }
         }
+        public async Task<List<Winner>> GetWinners()
+        {
+            try
+            {
+                var winners = await chinesesOctionContext.Winners
+                    .Include(g => g.Gift)
+                    .Include(u => u.User)
+                    .ToListAsync();
+                if (winners.Count > 0)
+                {    
+                    return winners;
+                }
+                throw new Exception("The draw has not been made yet");
 
+            }
+            catch (Exception ex) { throw; }
+        }
         public async Task<List<Winner>> ReportOfWinners()
         {
             try
@@ -145,6 +161,7 @@ namespace ChineseOction.DAL
 
                 if (giftQuantities.Count > 0)
                 {
+                    await ExportToExcelAndSendEmail(giftQuantities, "37326053899@mby.co.il");
                     return giftQuantities;
                 }
                 throw new Exception("There were no sales proceeds yet");

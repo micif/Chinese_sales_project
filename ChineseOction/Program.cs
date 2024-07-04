@@ -92,10 +92,12 @@ builder.Services.AddAuthentication(options =>
 
 var app = builder.Build();
 
+// Add the error handling middleware
+app.UseMiddleware<RequestTimingMiddleware>();
+
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseJwtMiddleware();
-
 
 // Configure the HTTP request pipeline
 if (app.Environment.IsDevelopment())

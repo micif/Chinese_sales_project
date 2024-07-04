@@ -8,5 +8,6 @@ namespace ChineseOction.DAL
         Task<List<GiftIncomeReport>> ReportOfIncome();
         Task<List<Winner>> ReportOfWinners();
         Task SendEmail(string recipientEmail, string gift);
+        Task<List<Winner>> GetWinners();
     }
 }

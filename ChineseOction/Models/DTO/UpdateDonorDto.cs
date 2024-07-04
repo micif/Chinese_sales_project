@@ -7,5 +7,6 @@
         public string LastName { get; set; }
         public string Phone { get; set; }
         public string Mail { get; set; }
+        public string Picture { get; set; }
     }
 }

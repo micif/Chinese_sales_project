@@ -21,6 +21,12 @@ namespace ChineseOction.Controllers
             this.raffleService = raffleService;
             this.mapper = mapper;
         }
+
+        [HttpGet]
+        public async Task<ActionResult<List<Winner>>> GetWinners()
+        {
+            return await raffleService.GetWinners();
+        }
         [Authorize(Roles = nameof(Permission.MANAGER))]
         [HttpPost("{giftId}")]
         public async Task <ActionResult<Winner>>  GiftRaffle(int giftId)
@@ -28,6 +34,7 @@ namespace ChineseOction.Controllers
             var a = await raffleService.GiftRaffle(giftId);
             return Ok(a);
         }
+        [Authorize(Roles = nameof(Permission.MANAGER))]
         [HttpGet("ReportOfIncome")]
         public async Task <ActionResult<List<GiftIncomeReport>> > ReportOfIncome()
         {

@@ -64,7 +64,7 @@ namespace ChineseOction.Controllers
             return Ok(result); 
         }
 
-        [HttpGet("SearchByName{name}")]
+        [HttpGet("SearchByName/{name}")]
         public async Task<ActionResult<List<Donor>>> SearchByName(string name)
         {
             var donors = await donatesService.SearchByName(name);
@@ -75,7 +75,7 @@ namespace ChineseOction.Controllers
             return Ok(donors); 
         }
 
-        [HttpGet("SearchByEmail{email}")]
+        [HttpGet("SearchByEmail/{email}")]
         public async Task<ActionResult<List<Donor>>> SearchByEmail(string email)
         {
             var donors = await donatesService.SearchByEmail(email);
@@ -86,10 +86,10 @@ namespace ChineseOction.Controllers
             return Ok(donors); 
         }
 
-        [HttpGet("SearchByGift{giftId}")]
-        public async Task<ActionResult<List<Donor>>> SearchByGift(int giftId)
+        [HttpGet("SearchByGift/{gift}")]
+        public async Task<ActionResult<List<Donor>>> SearchByGift(string gift)
         {
-            var donors = await donatesService.SearchByGift(giftId);
+            var donors = await donatesService.SearchByGift(gift);
             if (donors == null || !donors.Any())
             {
                 return NoContent(); 

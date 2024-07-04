@@ -46,17 +46,29 @@ namespace ChineseOction.DAL
         {
             try
             {
-                //var purchase = await chinesesOctionContext.PurchaseLists
-                //                    .OrderByDescending(g => g.sum(g.Quantity))
-                //                    .ToListAsync();
-                return null;
+                var purchases = await chinesesOctionContext.PurchaseLists
+                                     .GroupBy(p => p.Gift)
+                                     .Select(g => new
+                                     {
+                                         Gift = g.Key,
+                                         TotalQuantity = g.Sum(p => p.Quantity)
+                                     })
+                                     .OrderByDescending(g => g.TotalQuantity)
+                                     .Select(g => new PurchaseList
+                                     {
+                                         Gift = g.Gift,
+                                         Quantity = g.TotalQuantity
+                                     })
+                                     .ToListAsync();
+
+                return purchases;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
-
         }
+
         public async Task<List<User>> GetDetails()
         {
             try

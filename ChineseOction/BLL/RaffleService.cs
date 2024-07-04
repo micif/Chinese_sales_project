@@ -23,6 +23,10 @@ namespace ChineseOction.BLL
         {
             return await raffleDal.ReportOfWinners();
         }
+        public async Task<List<Winner>> GetWinners()
+        {
+            return await raffleDal.GetWinners();
+        }
 
     }
 }
