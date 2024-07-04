@@ -56,9 +56,9 @@ namespace ChineseOction.BLL
         {
             return await donorDal.SearchByEmail(email);
         }
-        public async Task<List<Donor>> SearchByGift(int giftId)
+        public async Task<List<Donor>> SearchByGift(string gift)
         {
-            return await donorDal.SearchByGift(giftId);
+            return await donorDal.SearchByGift(gift);
         }
     }
 }

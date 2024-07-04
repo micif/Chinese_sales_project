@@ -10,7 +10,7 @@ namespace ChineseOction.DAL
         Task<Donor> Update(Donor donor);
         Task<List<Donor>> SearchByName(string name);
         Task<List<Donor>> SearchByEmail(string email);
-        Task<List<Donor>> SearchByGift(int giftId);
+        Task<List<Donor>> SearchByGift(string gift);
 
     }
 }

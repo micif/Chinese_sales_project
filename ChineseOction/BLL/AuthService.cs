@@ -23,6 +23,7 @@ namespace ChineseOction.BLL
         }
         public async Task Register(User user)
         {
+
              await authDal.Register(user);
         }
     }

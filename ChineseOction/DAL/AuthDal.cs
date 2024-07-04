@@ -53,7 +53,7 @@ namespace ChineseOction.DAL
                         configuration["Jwt:Issuer"],
                         configuration["Jwt:Audience"],
                         claims,
-                        expires: DateTime.UtcNow.AddMinutes(60),
+                        expires: DateTime.UtcNow.AddMinutes(300),
                         signingCredentials: signIn
                     );
 
@@ -73,6 +73,7 @@ namespace ChineseOction.DAL
         {
             try
             {
+
                 var userName=await chinesesOctionContext.Users.FirstOrDefaultAsync(u=>u.UserName==user.UserName);
                 if(userName != null)
                 {

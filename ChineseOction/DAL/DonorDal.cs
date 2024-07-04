@@ -68,6 +68,7 @@ namespace ChineseOction.DAL
                     result.FirstName = donor.FirstName;
                     result.Mail = donor.Mail;
                     result.Phone = donor.Phone;
+                    result.Picture= donor.Picture;
                     await chinesesOctionContext.SaveChangesAsync();
                
                
@@ -95,7 +96,7 @@ namespace ChineseOction.DAL
         {
             try
             {
-                var donor = await chinesesOctionContext.Donors.Where(g => g.FirstName+" "+g.LastName == name).ToListAsync();
+                var donor = await chinesesOctionContext.Donors.Where(g => (g.FirstName+" "+g.LastName).Contains(name)).Include(g=>g.Gifts).ToListAsync();
                 return donor;
             }
             catch (Exception ex)
@@ -107,7 +108,7 @@ namespace ChineseOction.DAL
         {
             try
             {
-                var donor = await chinesesOctionContext.Donors.Where(g => g.Mail == email).ToListAsync();
+                var donor = await chinesesOctionContext.Donors.Where(g => g.Mail.Contains(email)).Include(g=>g.Gifts).ToListAsync();
                 return donor;
             }
             catch (Exception ex)
@@ -115,17 +116,24 @@ namespace ChineseOction.DAL
                 throw ex;
             }
         }
-        public async Task<List<Donor>> SearchByGift(int giftId)
+        public async Task<List<Donor>> SearchByGift(string gift)
         {
             try
             {
-                var donor = await chinesesOctionContext.Gifts.Where(g => g.Id == giftId).Include(d => d.Donor).Select(d => d.Donor).ToListAsync();
-                return donor;
+                var donors = await chinesesOctionContext.Gifts
+                    .Where(g => g.Name.Contains(gift))
+                    .Include(g => g.Donor)
+                     .ThenInclude(d => d.Gifts)
+                    .Select(g => g.Donor).Distinct()
+                    .ToListAsync();
+
+                return donors;
             }
             catch (Exception ex)
             {
                 throw ex;
             }
         }
+
     }
 }
